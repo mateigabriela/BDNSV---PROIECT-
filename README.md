@@ -6,6 +6,11 @@ Acest proiect demonstrează implementarea unui sistem e-commerce pentru motocicl
 - CRUD operations cu Flask API
 - Interfață web pentru interacțiune
 
+### 🎬 Demo Video
+[![Demo Video](https://img.youtube.com/vi/l4DIea2bXlQ/0.jpg)](https://youtu.be/l4DIea2bXlQ)
+
+👉 [Vizualizează demo-ul aplicației](https://youtu.be/l4DIea2bXlQ)
+
 ---
 
 ## 2. Arhitectura Sistemului
