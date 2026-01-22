@@ -1,0 +1,16 @@
+version: '3'
+services:
+  mongos:
+    image: mongo
+    command: mongos --configdb configserver/configsvr:27019 --bind_ip_all
+    ports:
+      - 27017:27017
+  configsvr:
+    image: mongo
+    command: mongod --configsvr --replSet configserver --port 27019 --bind_ip_all
+  shard1:
+    image: mongo
+    command: mongod --shardsvr --replSet shard1rs --port 27018 --bind_ip_all
+  shard2:
+    image: mongo
+    command: mongod --shardsvr --replSet shard2rs --port 27020 --bind_ip_all
