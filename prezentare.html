@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>MOTO SHOP - Prezentare</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .remark-slide-content {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 15px 40px;
+            font-size: 18px;
+        }
+        
+        .remark-slide-content h1 {
+            color: #1976D2;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            margin-top: 0;
+            border-bottom: 3px solid #1976D2;
+            padding-bottom: 8px;
+        }
+        
+        .remark-slide-content h2 {
+            color: #2196F3;
+            font-size: 1.3em;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+        
+        .remark-slide-content h3 {
+            color: #1565C0;
+            font-size: 1.1em;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+        
+        .title-slide {
+            background: linear-gradient(135deg, #1976D2 0%, #0D47A1 100%);
+            text-align: center;
+            padding-top: 120px;
+        }
+        
+        .title-slide h1 {
+            color: white;
+            font-size: 2.8em;
+            border: none;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .title-slide h2 {
+            color: #BBDEFB;
+            font-size: 1.3em;
+            margin-top: 20px;
+        }
+        
+        .title-slide h3 {
+            color: #90CAF9;
+            font-size: 1.1em;
+            margin-top: 30px;
+        }
+        
+        .two-columns {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .two-columns .column {
+            flex: 1;
+        }
+        
+        ul {
+            font-size: 0.95em;
+            line-height: 1.5;
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 4px;
+        }
+        
+        p {
+            margin: 5px 0;
+        }
+        
+        code {
+            background: #263238;
+            color: #80CBC4;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+        
+        pre {
+            margin: 8px 0;
+        }
+        
+        pre code {
+            display: block;
+            padding: 10px;
+            font-size: 0.75em;
+            line-height: 1.3;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 0.8em;
+        }
+        
+        th, td {
+            border: 1px solid #90CAF9;
+            padding: 6px 10px;
+            text-align: left;
+        }
+        
+        th {
+            background: #1976D2;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background: rgba(33, 150, 243, 0.1);
+        }
+        
+        .conclusion-slide {
+            background: linear-gradient(135deg, #1976D2 0%, #0D47A1 100%);
+        }
+        
+        .conclusion-slide h1, .conclusion-slide li, .conclusion-slide p, .conclusion-slide h3 {
+            color: white;
+        }
+        
+        .conclusion-slide h1 {
+            border-bottom-color: white;
+        }
+        
+        img {
+            max-width: 100%;
+            max-height: 280px;
+            border-radius: 6px;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+        }
+        
+        .img-center {
+            text-align: center;
+        }
+        
+        .img-small img {
+            max-height: 200px;
+        }
+        
+        .remark-slide-number {
+            color: #1976D2;
+            font-size: 12px;
+        }
+        
+        .remark-slide-scaler {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="source">
+
+class: title-slide
+
+# MOTO SHOP
+
+## E-Commerce Platform pentru Motociclete
+
+### Proiect Baze de Date NoSQL
+
+MongoDB | Flask | Python
+
+---
+
+# Obiective Proiect
+
+.two-columns[
+.column[
+- Implementare schema design MongoDB
+- Strategii de scalare
+- CRUD Operations cu Flask API
+- Interfata web functionala
+]
+.column[
+**Baza de date:** `moto_shop_db`
+
+**Colectii:** products, users, orders
+]
+]
+
+---
+
+# Arhitectura Sistemului
+
+.two-columns[
+.column[
+### Frontend
+- Browser Web HTML/CSS/JS
+
+### Backend
+- Flask API (Python 3.11)
+- PyMongo Driver
+
+### Database
+- MongoDB 7.0
+- 3 Colectii
+]
+.column[
+.img-center[
+![Arhitectura](arhitectura.png)
+]
+]
+]
+
+---
+
+# Data Model - Colectii
+
+.two-columns[
+.column[
+### PRODUCTS
+- moto_id, name, brand, price, stock
+
+### USERS
+- user_id, name, email
+- addresses[] (embedded)
+
+### ORDERS
+- order_code, customer_ref
+- items[] cu snapshot pattern
+]
+.column[
+.img-center[
+![Data Model](data_model.png)
+]
+]
+]
+
+---
+
+# Schema Design Strategies
+
+.two-columns[
+.column[
+### 1. EMBEDDING
+`User -> addresses[]`
+- Array de adrese in document
+- Un singur query
+
+### 2. REFERENCING
+`Order -> customer_ref`
+- ID referinta la user
+- Scaleaza pentru milioane comenzi
+]
+.column[
+### 3. SNAPSHOT PATTERN
+`Order -> price_snapshot`
+- Pretul salvat la momentul T
+- Facturi corecte intotdeauna
+
+### Justificare:
+- Adrese putine -> Embedding
+- Comenzi multe -> Referencing
+]
+]
+
+---
+
+# CRUD Operations
+
+.two-columns[
+.column[
+### CREATE
+`db.users.insert_one({...})`
+
+### READ
+`db.products.find({brand: "Yamaha"})`
+]
+.column[
+### UPDATE
+`db.users.update_one({...}, {$set: {...}})`
+
+### DELETE
+`db.users.delete_one({user_id: "U1"})`
+]
+]
+
+---
+
+# Scaling - Indexing
+
+.two-columns[
+.column[
+### Indexuri create:
+```python
+db.products.create_index("price")
+db.products.create_index("brand")
+db.products.create_index("moto_id")
+```
+]
+.column[
+### Rezultate:
+
+| Query | Imbunatatire |
+|-------|--------------|
+| price > 10k | 7.5x |
+| brand=Yamaha | 12x |
+| moto_id | 36x |
+]
+]
+
+---
+
+# Scaling - Replication & Sharding
+
+.two-columns[
+.column[
+### REPLICATION
+- 1 Primary + 2 Secondary
+- Automatic failover (~10 sec)
+- High Availability
+]
+.column[
+### SHARDING
+- Distributie date pe shards
+- Shard key: {brand, _id}
+- Scalare orizontala nelimitata
+]
+]
+
+---
+
+# Demo - Interfata Web
+
+.two-columns[
+.column[
+### Functionalitati:
+- Catalog produse cu filtrare
+- Gestiune utilizatori CRUD
+- Plasare comenzi
+- Statistici Aggregation Pipeline
+]
+.column[
+.img-center[
+![Interfata](interfata_web1.png)
+]
+]
+]
+
+---
+
+class: conclusion-slide
+
+# Concluzii
+
+### De ce MongoDB?
+- Schema flexibila
+- Embedded documents
+- Horizontal scaling - sharding nativ
+- JSON native
+- Aggregation Pipeline
+
+**Stack:** Python 3.11 | Flask 3.0 | PyMongo 4.6 | MongoDB 7.0
+
+**GitHub:** github.com/mateigabriela/BDNSV---PROIECT-
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+    <script>
+        var slideshow = remark.create({
+            ratio: '16:9',
+            highlightStyle: 'monokai',
+            highlightLines: true,
+            countIncrementalSlides: false,
+            navigation: {
+                scroll: false,
+                touch: true,
+                click: false
+            }
+        });
+    </script>
+</body>
+</html>

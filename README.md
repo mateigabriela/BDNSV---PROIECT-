@@ -421,7 +421,7 @@ Proiect_BD/
 ├── app.py                 # Aplicația principală Flask
 ├── docker-compose.yaml    # Configurare Docker
 ├── README.md              # Documentație (acest fișier)
-├── prezentare.pptx        # Prezentare PowerPoint
+├── prezentare.html        # Prezentare Remark.js
 └── .venv/                 # Virtual environment Python
 ```
 
